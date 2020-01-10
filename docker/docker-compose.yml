@@ -1,0 +1,17 @@
+version: "3.5"
+
+volumes:
+    dbdata:
+
+services:
+    postgres:
+        container_name: postgres
+        environment:
+            PGDATA: "/var/lib/postgresql/data/pgdata"
+            POSTGRES_DB: db_des
+            POSTGRES_PASSWORD: pwd@123
+        image: postgres:11.0-alpine
+        ports:
+            - "5434:5432"
+        volumes:
+            - "dbdata:/var/lib/postgresql/data/pgdata"
