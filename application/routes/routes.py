@@ -12,6 +12,7 @@ class Routes():
         app.add_routes([
             web.get("/api/v1/authors", self.author_ctl.get_authors),
             web.post("/api/v1/authors", self.author_ctl.save_author),
+            web.put("/api/v1/authors", self.author_ctl.update_author),
+            web.delete("/api/v1/authors", self.author_ctl.remove_author),
             web.get("/api/v1/ip", self.address_ctl.get_ip),
         ])
-        
