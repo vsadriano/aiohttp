@@ -1,0 +1,41 @@
+version: "3.5"
+
+volumes:
+    dbdata:
+
+services:
+    database:
+        container_name: postgres
+        environment:
+            PGDATA: /var/lib/postgresql/data/pgdata
+            POSTGRES_DB: crude_db
+            POSTGRES_PASSWORD: password
+        image: postgres:11.0-alpine
+        ports:
+            - 5432:5432
+        expose:
+            - 5432
+        volumes:
+            - dbdata:/var/lib/postgresql/data/pgdata
+            - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql
+
+    backend:
+        container_name: backend
+        environment:
+            DB_HOST_DES: postgres
+            DB_NAME_DES: crude_db
+            DB_USER_DES: postgres
+            DB_PSWD_DES: password
+            DB_PORT_DES: 5432
+            DB_SCHM_DES: public
+            DB_POOL_MIN: 10
+            DB_POOL_MAX: 10
+        image: python:3.7.6-slim
+        working_dir: /opt/server-application
+        command: ["sh", "start_app.sh"]
+        ports:
+            - 8080:8080
+        volumes:
+            - ./server-application:/opt/server-application
+        depends_on:
+            - database
