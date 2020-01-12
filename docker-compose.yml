@@ -39,3 +39,15 @@ services:
             - ./server-application:/opt/server-application
         depends_on:
             - database
+
+    client:
+        container_name: client
+        image: python:3.7.6-slim
+        working_dir: /opt/client-application
+        command: ["sh", "start_app.sh"]
+        ports:
+            - 8081:8080
+        volumes:
+            - ./client-application:/opt/client-application
+        depends_on:
+            - backend
