@@ -1,4 +1,4 @@
-from application.modules.address.address_service import AddressService
+from app.modules.address.address_service import AddressService
 
 
 class AddressController():

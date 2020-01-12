@@ -1,10 +1,10 @@
 import logging
 import json
 from aiohttp import web
-from application.config import config
-from application.config.const import *
-from application.modules.author.author_service import AuthorService
-from application.utils.utils import Utils
+from app.config import config
+from app.config.const import *
+from app.modules.author.author_service import AuthorService
+from app.utils.utils import Utils
 
 
 class AuthorController():

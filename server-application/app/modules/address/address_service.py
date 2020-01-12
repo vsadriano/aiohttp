@@ -1,4 +1,4 @@
-from application.utils.utils import Utils
+from app.utils.utils import Utils
 import aiohttp
 # endpoint http://ip.jsontest.com
 

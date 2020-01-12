@@ -1,5 +1,5 @@
-from application.config import config
-from application.models.author import Author
+from app.config import config
+from app.models.author import Author
 
 
 class AuthorService():

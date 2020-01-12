@@ -1,6 +1,6 @@
 from aiohttp import web
-from application.dao.base_dao import BaseDao
-from application.routes.routes import Routes
+from app.dao.base_dao import BaseDao
+from app.routes.routes import Routes
 import logging
 
 

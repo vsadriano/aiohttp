@@ -1,5 +1,5 @@
 from aiohttp import web
-from application.server import Server
+from app.server import Server
 
 def main():
     Server().run()

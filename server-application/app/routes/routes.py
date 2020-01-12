@@ -1,6 +1,6 @@
 from aiohttp import web
-from application.modules.address.address_controller import AddressController
-from application.modules.author.author_controller import AuthorController
+from app.modules.address.address_controller import AddressController
+from app.modules.author.author_controller import AuthorController
 
 
 class Routes():

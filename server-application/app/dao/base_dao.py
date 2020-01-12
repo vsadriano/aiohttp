@@ -3,7 +3,7 @@
 import aiopg
 import asyncio
 import logging
-from application.config import config
+from app.config import config
 
 db_name = config.db_name
 db_user = config.db_user

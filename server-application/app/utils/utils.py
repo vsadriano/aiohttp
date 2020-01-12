@@ -1,6 +1,6 @@
 from aiohttp import web
-from application.config.const import *
-from application.models.author import Author
+from app.config.const import *
+from app.models.author import Author
 import aiohttp
 import logging
 import json
