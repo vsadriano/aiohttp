@@ -10,4 +10,3 @@ class AddressService():
     async def request_my_ip(self):
         my_ip = await self.utils.req_get_handler()
         return my_ip
-        
