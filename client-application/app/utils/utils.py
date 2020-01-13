@@ -40,12 +40,7 @@ class Utils():
 
     async def req_get_handler(self, endpoint, params=None):
         async with aiohttp.ClientSession() as session:
-            # async with session.get(f"{config.url}{endpoint}", params=params) as resp:
-            #     res = await resp.json()
-                # if not res["success"]:
-                #     return None
-                # return res
-            async with session.Request('GET', f"{config.url}{endpoint}", params=params) as resp:
+            async with session.get(f"{config.url}{endpoint}", params=params) as resp:
                 res = await resp.json()
                 if not res["success"]:
                     return None
