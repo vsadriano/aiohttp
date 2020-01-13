@@ -1,3 +1,3 @@
 import os
 
-endpoint_ip = "http://ip.jsontest.com"
+url = "http://0.0.0.0:8080/api/v1"

@@ -1,5 +1,6 @@
 from aiohttp import web
-# from app.config.const import *
+from app.config import config
+from app.config.const import *
 from app.models.author import Author
 import aiohttp
 import logging
@@ -18,29 +19,29 @@ class Utils():
         raise web.HTTPBadRequest(text=json.dumps(
             bad_request_msg), content_type="application/json")
 
-    # def handler_internal_error(self):
-    #     raise web.HTTPInternalServerError(text=json.dumps(
-    #         INTERNAL_ERROR_MSG), content_type="application/json")
+    def handler_internal_error(self):
+        raise web.HTTPInternalServerError(text=json.dumps(
+            INTERNAL_ERROR_MSG), content_type="application/json")
 
-    # def handler_not_acceptable(self):
-    #     raise web.HTTPNotAcceptable(text=json.dumps(
-    #         NOT_ACCEPTABLE_MSG), content_type="application/json")
+    def handler_not_acceptable(self):
+        raise web.HTTPNotAcceptable(text=json.dumps(
+            NOT_ACCEPTABLE_MSG), content_type="application/json")
 
-    # def handler_registry_suceeded(self):
-    #     return web.json_response(text=json.dumps(
-    #         REGISTRY_SUCCEEDED_MSG), content_type="application/json")
+    def handler_registry_suceeded(self):
+        return web.json_response(text=json.dumps(
+            REGISTRY_SUCCEEDED_MSG), content_type="application/json")
 
-    # def handler_update_succeeded(self):
-    #     return web.json_response(text=json.dumps(
-    #         UPDATE_SUCCEEDED_MSG), content_type="application/json")
+    def handler_update_succeeded(self):
+        return web.json_response(text=json.dumps(
+            UPDATE_SUCCEEDED_MSG), content_type="application/json")
 
-    # def handler_remove_succeeded(self):
-    #     return web.json_response(text=json.dumps(
-    #         NO_CONTENT_MSG), content_type="application/json")
+    def handler_remove_succeeded(self):
+        return web.json_response(text=json.dumps(
+            NO_CONTENT_MSG), content_type="application/json")
 
     async def req_get_handler(self, endpoint):
         async with aiohttp.ClientSession() as session:
-            async with session.get(endpoint) as resp:
+            async with session.get(f"{config.url}{endpoint}") as resp:
                 res = await resp.json()
                 return web.json_response(res)
 
