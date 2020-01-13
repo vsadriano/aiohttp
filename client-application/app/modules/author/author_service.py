@@ -5,63 +5,30 @@ from app.utils.utils import Utils
 
 class AuthorService():
     def __init__(self):
+        self.endpoint = "/authors"
         self.utils = Utils()
 
-    async def get_authors(self, endpoint):
-        authors = await self.utils.req_get_handler(endpoint)
-        return authors
+    async def get_authors(self, params=None):
+        res = await self.utils.req_get_handler(self.endpoint, params)
+        return res
 
-    async def get_author(self, dbpool, author_id):
-        sql = f"""SELECT author_fname,
-            author_lname,
-            author_email,
-            author_id
-            FROM author
-            WHERE author_id = %s"""
+    async def insert_author(self, author):
+        payload = {"first_name": author.first_name,
+            "last_name": author.last_name,
+            "email": author.email}
 
-        async with dbpool.acquire() as conn:
-            async with conn.cursor() as cursor:
-                await cursor.execute(sql, (author_id,))
-                row = await cursor.fetchone()
-                return Author(*row) if row else None
+        res = await self.utils.req_post_handler(self.endpoint, payload)
+        return res
 
-    async def insert_author(self, dbpool, author):
-        sql = f"""INSERT INTO author
-            (
-                author_fname,
-                author_lname,
-                author_email
-            ) VALUES
-            (
-                %s, %s, %s
-            )"""
+    async def update_author(self, author):
+        payload = {"id": author.id,
+            "first_name": author.first_name,
+            "last_name": author.last_name,
+            "email": author.email}
 
-        async with dbpool.acquire() as conn:
-            async with conn.cursor() as cursor:
-                await cursor.execute(sql, (author.first_name,
-                                           author.last_name,
-                                           author.email))
+        res = await self.utils.req_put_handler(self.endpoint, payload)
+        return res
 
-    async def update_author(self, dbpool, author):
-        sql = f"""UPDATE author
-            SET author_fname = %s,
-                author_lname = %s,
-                author_email = %s
-            WHERE author_id = {author.id}
-            """
-        print(f"Author: {author.last_name}")
-
-        async with dbpool.acquire() as conn:
-            async with conn.cursor() as cursor:
-                await cursor.execute(sql,
-                                     (author.first_name,
-                                      author.last_name,
-                                      author.email))
-
-    async def delete_author(self, dbpool, author_id):
-        sql = f"""DELETE FROM author
-            WHERE author_id = {author_id}"""
-
-        async with dbpool.acquire() as conn:
-            async with conn.cursor() as cursor:
-                await cursor.execute(sql)
+    async def delete_author(self, params):
+        res = await self.utils.req_delete_handler(self.endpoint, params)
+        return res

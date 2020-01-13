@@ -3,7 +3,6 @@ from app.config import config
 from app.config.const import *
 from app.models.author import Author
 import aiohttp
-import logging
 import json
 
 
@@ -39,11 +38,40 @@ class Utils():
         return web.json_response(text=json.dumps(
             NO_CONTENT_MSG), content_type="application/json")
 
-    async def req_get_handler(self, endpoint):
+    async def req_get_handler(self, endpoint, params=None):
         async with aiohttp.ClientSession() as session:
-            async with session.get(f"{config.url}{endpoint}") as resp:
+            # async with session.get(f"{config.url}{endpoint}", params=params) as resp:
+            #     res = await resp.json()
+                # if not res["success"]:
+                #     return None
+                # return res
+            async with session.Request('GET', f"{config.url}{endpoint}", params=params) as resp:
                 res = await resp.json()
-                return web.json_response(res)
+                if not res["success"]:
+                    return None
+                return res
+
+    async def req_post_handler(self, endpoint, data=None):
+        async with aiohttp.ClientSession() as session:
+            async with session.post(f"{config.url}{endpoint}", json=data) as resp:
+                res = await resp.json()
+                return res
+    
+    async def req_put_handler(self, endpoint, data=None):
+        async with aiohttp.ClientSession() as session:
+            async with session.put(f"{config.url}{endpoint}", json=data) as resp:
+                res = await resp.json()
+                if not res["success"]:
+                    return None
+                return res
+
+    async def req_delete_handler(self, endpoint, params):
+        async with aiohttp.ClientSession() as session:
+            async with session.delete(f"{config.url}{endpoint}", params=params) as resp:
+                res = await resp.json()
+                if not res["success"]:
+                    return None
+                return res
 
     def validate_author(self, data):
         if "id" in data:
