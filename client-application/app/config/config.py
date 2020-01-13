@@ -1,3 +1,3 @@
 import os
 
-url = "http://0.0.0.0:8080/api/v1"
+url = "http://backend:8080/api/v1"
