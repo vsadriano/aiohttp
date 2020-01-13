@@ -35,6 +35,8 @@ services:
         command: ["sh", "start_app.sh"]
         ports:
             - 8080:8080
+        expose:
+            - 8080
         volumes:
             - ./server-application:/opt/server-application
         depends_on:
